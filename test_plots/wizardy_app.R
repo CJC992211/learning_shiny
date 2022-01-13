@@ -1,6 +1,7 @@
 library(shiny)
 library(ggplot2)
 
+#from here:
 #https://stackoverflow.com/questions/37343387/r-shiny-ggplot2-checkboxgroup-to-plot-specific-data
 
 ui=shinyUI(fluidPage(checkboxGroupInput("region_choose", label = "Choose a region",

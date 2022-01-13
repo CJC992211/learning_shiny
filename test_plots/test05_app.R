@@ -1,8 +1,11 @@
 #load libraries
 library(shiny)
 library(tidyverse)
+library(dplyr)
 
-iris_choices <- c("Sepal.Length", "Sepal.Width",  "Petal.Length", "Petal.Width")
+#no hardcoding needed
+#c("Sepal.Length", "Sepal.Width",  "Petal.Length", "Petal.Width")
+iris_choices <- names(iris)[names(iris) != "Species"]
 iris_choices
 
 iris_species <- c("setosa","versicolor","virginica")
@@ -27,9 +30,16 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   #data wrangling
+  #this is base R
   data_iris <- reactive({ #makes things happen
-    return(iris[iris$Species %in% input$species,]) #filters based on user input from the UI
+    iris %>% filter(Species %in% input$species) 
   })
+  
+  #base R
+  #return(iris[iris$Species %in% input$species,])
+  
+  #dplyr
+  #iris %>% filter(Species %in% input$species)
   
   #plot
   output$plot <- renderPlot({
